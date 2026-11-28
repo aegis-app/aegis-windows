@@ -24,4 +24,4 @@ jobs:
       - name: Build and test
         run: ./build.sh
       - name: Version smoke check
-        run: java -jar aegis-win.jar --version
+        run: java -jar dist/aegis-win.jar --version

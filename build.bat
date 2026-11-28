@@ -21,12 +21,18 @@ javac -encoding UTF-8 -d build\classes @build\sources.txt
 if errorlevel 1 exit /b 1
 if exist src\main\resources xcopy /e /i /y src\main\resources build\classes >nul
 
+if "%~1"=="--skip-tests" (
+  echo == test == ^(skipped^)
+  goto package
+)
 echo == test ==
 dir /s /b src\test\java\*.java > build\test-sources.txt
 javac -encoding UTF-8 -cp build\classes -d build\test-classes @build\test-sources.txt
 if errorlevel 1 exit /b 1
 java -Dfile.encoding=UTF-8 -cp build\classes;build\test-classes aegiswin.CoreTest
 if errorlevel 1 exit /b 1
+
+:package
 
 echo == package ==
 echo Main-Class: aegiswin.Main> build\manifest.mf

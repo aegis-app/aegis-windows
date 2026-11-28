@@ -21,10 +21,14 @@ find src/main/java -name '*.java' > build/sources.txt
 # 📦 jar に同梱するリソース (観測点データ) をクラス出力へコピーする
 if [ -d src/main/resources ]; then cp -r src/main/resources/. build/classes/; fi
 
-echo "== test =="
-find src/test/java -name '*.java' > build/test-sources.txt
-"$JAVAC" -encoding UTF-8 -cp build/classes -d build/test-classes @build/test-sources.txt
-"$JAVA" -Dfile.encoding=UTF-8 -cp build/classes:build/test-classes aegiswin.CoreTest
+if [ "${1:-}" = "--skip-tests" ]; then
+  echo "== test == (skipped)"
+else
+  echo "== test =="
+  find src/test/java -name '*.java' > build/test-sources.txt
+  "$JAVAC" -encoding UTF-8 -cp build/classes -d build/test-classes @build/test-sources.txt
+  "$JAVA" -Dfile.encoding=UTF-8 -cp build/classes:build/test-classes aegiswin.CoreTest
+fi
 
 echo "== package =="
 printf 'Main-Class: aegiswin.Main\n' > build/manifest.mf
