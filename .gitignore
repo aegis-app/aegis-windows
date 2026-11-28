@@ -1,4 +1,6 @@
 # ===== Build =====
+build/
+dist/
 out/
 aegis-win.jar
 
