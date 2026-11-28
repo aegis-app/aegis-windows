@@ -1,0 +1,13 @@
+# ===== Build =====
+out/
+aegis-win.jar
+
+# ===== OS / Editor =====
+.DS_Store
+.idea/
+*.iml
+.vscode/
+
+# ===== Env / Logs =====
+.env
+*.log
